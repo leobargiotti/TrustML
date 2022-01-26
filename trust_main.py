@@ -161,6 +161,7 @@ if __name__ == '__main__':
 
                 # Output Dataframe
                 out_df = pd.DataFrame()
+                out_df = X_test.copy()
                 out_df['true_label'] = list(map(lambda x: label_tags[x], y_test))
                 out_df['predicted_label'] = list(map(lambda x: label_tags[x], y_pred))
                 out_df['is_misclassification'] = np.where(out_df['true_label'] != out_df['predicted_label'], 1, 0)
