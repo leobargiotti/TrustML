@@ -1,9 +1,9 @@
-# trustml
+# TrustML
 
 Il presente repository contiene il codice utilizzato per il lavoro di Tesi - per il corso di laurea triennale in Informatica presso l'Università degli Studi di Firenze - dal titolo "Come posso fidarmi di un Machine Learner?" con autore Leonardo Bargiotti.
 
 Nel file di configurazione config.cfg è necessario specificare:
-* il dataset in formato .csv oppure MNIST (prende in input il dataset contenente 70000 immagini 28x28 raffiguranti le 10 cifre, 60000 nel traning set e 10000 nel test set),
+* il dataset in formato .csv oppure MNIST (prende in input il dataset contenente 70000 immagini 28x28 raffiguranti le 10 cifre scritte a mano, 60000 nel traning set e 10000 nel test set),
 * i classificatori,
 * il nome della colonna corrispondente alle classi,
 * il numero massimo di righe che utlizzano i classificatori.
