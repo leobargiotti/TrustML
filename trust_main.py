@@ -132,8 +132,8 @@ if __name__ == '__main__':
                 SHAPTrust(xt_numpy, max_samples=100, items=100, reg="bic"),
                 NeighborsTrust(x_train=X_train, y_train=y_train, k=19, labels=label_tags),
                 ExternalTrust(del_clf=Bayes(), x_train=X_train, y_train=y_train, norm=len(label_tags)),
-                CombinedTrust(del_clf=Bayes(), x_train=X_train, y_train=y_train, norm=len(label_tags)),
-                MultiCombinedTrust(clf_set=[RandomForest(trees=10), DecisionTree(depth=100)],
+                CombinedTrust(del_clf=XGB(), x_train=X_train, y_train=y_train, norm=len(label_tags)),
+                MultiCombinedTrust(clf_set=[RandomForest(trees=10), XGB(), DecisionTree(depth=100)],
                                    x_train=X_train, y_train=y_train, norm=len(label_tags)),
                 ConfidenceInterval(x_train=X_train.to_numpy(), y_train=y_train, confidence_level=0.9999)
             ]
