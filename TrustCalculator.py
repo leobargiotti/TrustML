@@ -65,11 +65,7 @@ class LimeTrust(TrustCalculator):
             sum_arr.append(sum(x[1] for x in arr))
         sum_arr = np.array(sum_arr)
         sum_pos = sum_arr[sum_arr > 0]/max(sum_arr)
-        return {"Sum": (-sum(sum_pos * np.log(sum_pos))),
-                "Sum_Top": sum_arr[val_exp.top_labels[0]],
-                "Intercept": np.var(list(val_exp.intercept.values())),
-                "Pred": val_exp.local_pred[0],
-                "Score": val_exp.score}
+        return {"Pred": val_exp.local_pred[0]}
 
     def trust_scores(self, feature_values_array, proba_array, classifier):
         """
@@ -79,22 +75,14 @@ class LimeTrust(TrustCalculator):
         :param classifier: the classifier used for classification
         :return: array of trust scores
         """
-        trust_sum = []
-        trust_st = []
-        trust_int = []
         trust_pred = []
-        trust_score = []
         if len(feature_values_array) == len(proba_array):
             for i in range(0, len(proba_array)):
                 lime_out = self.trust_score(feature_values_array[i], proba_array[i], classifier)
-                trust_sum.append(lime_out["Sum"])
-                trust_st.append(lime_out["Sum_Top"])
-                trust_int.append(lime_out["Intercept"])
                 trust_pred.append(lime_out["Pred"])
-                trust_score.append(lime_out["Score"])
         else:
             print("Items of the feature set have a different cardinality wrt probabilities")
-        return {"Sum": trust_sum, "Sum_Top": trust_st, "Intercept": trust_int, "Pred": trust_pred, "Score": trust_score}
+        return trust_pred
 
     def trust_strategy_name(self):
         return 'LIMECalculator(' + str(self.max_samples) + ')'
@@ -181,7 +169,7 @@ class SHAPTrust(TrustCalculator):
         for p in probs:
             vals = p[p > 0] / max(p)
             entr_arr.append(-sum(vals * np.log(vals)))
-        return {"Max": probs.max(axis=1), "Ent": entr_arr}
+        return {"Ent": entr_arr}
 
     def trust_strategy_name(self):
         return 'SHAPCalculator(' + str(self.max_samples) + ',' + str(self.items) + ',' + str(self.reg) + ')'
